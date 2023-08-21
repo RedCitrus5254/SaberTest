@@ -3,7 +3,7 @@ using FluentAssertions;
 using SerializerTests.Nodes;
 using Xunit;
 
-namespace SaberApp.Tests;
+namespace SaberLib.Tests;
 
 public class DmitriiSaburovSerializerTests
 {

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaberApp.Tests", "SaberApp.Tests\SaberApp.Tests.csproj", "{1CB16C5B-1681-4D03-A64E-D3DAADAA084B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaberLib.Tests", "SaberLib.Tests\SaberLib.Tests.csproj", "{1CB16C5B-1681-4D03-A64E-D3DAADAA084B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaberLib", "SaberLib\SaberLib.csproj", "{DD340B7D-23C9-4A89-B2CC-32D13255EB88}"
 EndProject
