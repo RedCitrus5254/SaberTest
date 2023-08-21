@@ -131,7 +131,6 @@ namespace SerializerTests.Implementations
             }
         }
 
-
         private static async IAsyncEnumerable<SerializableModels.ListNode> GetFromStream(
             Stream stream)
         {
@@ -153,7 +152,6 @@ namespace SerializerTests.Implementations
             IAsyncEnumerable<SerializableModels.ListNode> serializableNodes)
         {
             var listNodeById = new Dictionary<string, ListNode>();
-            var nodes = new List<SerializableModels.ListNode>();
 
             ListNode? prev = null;
 
@@ -163,28 +161,38 @@ namespace SerializerTests.Implementations
 
             await foreach (var node in serializableNodes)
             {
+                if (listNodeById.TryGetValue(node.Id, out var existedNode))
+                {
+                    current = existedNode;
+                }
+                else
+                {
+                    listNodeById.Add(node.Id, current);
+                }
                 current.Data = node.Data;
                 current.Previous = prev;
-
-                listNodeById.Add(node.Id, current);
-                nodes.Add(node);
 
                 if (prev != null)
                 {
                     prev.Next = current;
                 }
 
+                if (node.RandomId != null)
+                {
+                    if (listNodeById.TryGetValue(node.RandomId, out var randomNode))
+                    {
+                        current.Random = randomNode;
+                    }
+                    else
+                    {
+                        current.Random = new ListNode();
+                        listNodeById.Add(node.RandomId, current.Random);
+                    }
+                }
+
                 prev = current;
 
                 current = new ListNode();
-            }
-
-            foreach (var node in nodes)
-            {
-                if (node.RandomId != null)
-                {
-                    listNodeById[node.Id].Random = listNodeById[node.RandomId];
-                }
             }
 
             return head;
