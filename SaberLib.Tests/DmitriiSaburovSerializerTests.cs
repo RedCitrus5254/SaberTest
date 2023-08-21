@@ -190,9 +190,7 @@ public class DmitriiSaburovSerializerTests
     public class PerformanceTests
     {
         [Theory]
-        [InlineData(1000)]
-        [InlineData(10000)]
-        [InlineData(100000)]
+        [InlineData(1000000)]
         public async Task CheckPerformanceAsync(
             int elementsCount)
         {

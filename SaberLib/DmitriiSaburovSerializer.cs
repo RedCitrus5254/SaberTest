@@ -70,8 +70,6 @@ namespace SerializerTests.Implementations
 
         public async Task Serialize(ListNode head, Stream s)
         {
-            s.Seek(0, SeekOrigin.Begin);
-
             var serializableNodes = Map(head);
 
             foreach (var node in serializableNodes)
@@ -87,50 +85,49 @@ namespace SerializerTests.Implementations
         private static IEnumerable<SerializableModels.ListNode> Map(
             ListNode listNode)
         {
-            var list = listNode;
             var idByListNode = new Dictionary<ListNode, string>();
 
             string? curId = Guid.NewGuid().ToString();
 
-            idByListNode.Add(list, curId);
+            idByListNode.Add(listNode, curId);
 
-            while (list != null)
+            while (listNode != null)
             {
                 string? nextId = null;
-                if (list.Next != null)
+                if (listNode.Next != null)
                 {
-                    if (idByListNode.TryGetValue(list.Next, out var nextNodeId))
+                    if (idByListNode.TryGetValue(listNode.Next, out var nextNodeId))
                     {
                         nextId = nextNodeId;
                     }
                     else
                     {
                         nextId = Guid.NewGuid().ToString();
-                        idByListNode.TryAdd(list.Next, nextId);
+                        idByListNode.TryAdd(listNode.Next, nextId);
                     }
                 }
 
                 string? randomId = null;
-                if (list.Random != null)
+                if (listNode.Random != null)
                 {
-                    if (idByListNode.TryGetValue(list.Random, out var randomNodeId))
+                    if (idByListNode.TryGetValue(listNode.Random, out var randomNodeId))
                     {
                         randomId = randomNodeId;
                     }
                     else
                     {
                         randomId = Guid.NewGuid().ToString();
-                        idByListNode.TryAdd(list.Random, randomId);
+                        idByListNode.TryAdd(listNode.Random, randomId);
                     }
                 }
 
                 yield return new SerializableModels.ListNode(
                     id: curId!,
                     randomId: randomId,
-                    data: list.Data);
+                    data: listNode.Data);
 
                 curId = nextId;
-                list = list.Next;
+                listNode = listNode.Next;
             }
         }
 
